@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.support.v7.widget.helper.ItemTouchUIUtil;
@@ -27,14 +26,15 @@ import br.com.luisfernandez.recyclerview.std.pojo.Stadium;
  * Created by luisfernandez on 24/05/18.
  */
 
-public class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.StadiumViewHolder> {
+public class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.StadiumViewHolder>
+{
 
     public static final String TAG = "StadiumAdapter";
 
     private Context context;
     private List<Stadium> stadiumList;
 
-    int currentAdapterPosition = -1;
+    int currentAdapterPosition = - 1;
 
     public int getCurrentAdapterPosition()
     {
@@ -46,13 +46,15 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.StadiumV
         this.currentAdapterPosition = currentAdapterPosition;
     }
 
-    public StadiumAdapter(Context context, List<Stadium> stadiumList) {
+    public StadiumAdapter(Context context, List<Stadium> stadiumList)
+    {
         this.context = context;
         this.stadiumList = stadiumList;
     }
 
     @Override
-    public StadiumViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public StadiumViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.item_stadium_list, parent, false);
 
@@ -60,13 +62,13 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.StadiumV
     }
 
     @Override
-    public void onBindViewHolder(StadiumViewHolder holder, int position) {
+    public void onBindViewHolder(StadiumViewHolder holder, int position)
+    {
         Stadium stadium = this.getItem(position);
 
         holder.textName.setText(stadium.getName());
         holder.textCapacity.setText(String.valueOf(stadium.getCapacity()));
         holder.textFoundationDate.setText(stadium.getFoundation());
-
 
         Resources res = context.getResources();
         String quantityString = res.getQuantityString(R.plurals.text_like_plural, stadium.getLikes(), stadium.getLikes());
@@ -76,17 +78,20 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.StadiumV
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return stadiumList.size();
     }
 
-    private Stadium getItem(int position) {
+    private Stadium getItem(int position)
+    {
         return stadiumList.get(position);
     }
 
-    public static class StadiumViewHolder extends RecyclerView.ViewHolder {
+    public static class StadiumViewHolder extends RecyclerView.ViewHolder
+    {
 
-        public static final int CURRENT_WINDOW_SIZE = -180;
+        public static final int CURRENT_WINDOW_SIZE = - 180;
 
         TextView textName;
         TextView textCapacity;
@@ -94,7 +99,8 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.StadiumV
         TextView textLikeCount;
         ImageView imageStadiumPhoto;
 
-        public StadiumViewHolder(View itemView) {
+        public StadiumViewHolder(View itemView)
+        {
             super(itemView);
 
             this.textName = itemView.findViewById(R.id.textName);
@@ -120,15 +126,17 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.StadiumV
             int currentAdapterPosition = ((StadiumAdapter) recyclerView.getAdapter()).getCurrentAdapterPosition();
             Log.d(TAG, String.format("positions: [last: %d] [new: %d]", currentAdapterPosition, viewHolder.getAdapterPosition()));
 
-            if (currentAdapterPosition != viewHolder.getAdapterPosition()) {
+            if (currentAdapterPosition != viewHolder.getAdapterPosition())
+            {
                 recyclerView.getAdapter().notifyItemChanged(currentAdapterPosition);
                 isVirtualOpened = isOpened = false;
                 lastXPos = 0;
 
             }
-            ((StadiumAdapter)recyclerView.getAdapter()).setCurrentAdapterPosition(viewHolder.getAdapterPosition());
+            ((StadiumAdapter) recyclerView.getAdapter()).setCurrentAdapterPosition(viewHolder.getAdapterPosition());
 
-            if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+            if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE)
+            {
                 View itemView = viewHolder.itemView;
 
                 recyclerView.setOnClickListener(new View.OnClickListener()
@@ -156,20 +164,22 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.StadiumV
 
         private void handleBackground(final Canvas canvas, final float dX, final View itemView)
         {
-            if (isSwipingToLeft(dX)) {
+            if (isSwipingToLeft(dX))
+            {
                 Paint p = new Paint();
                 p.setARGB(155, 0, 0, 255);
 
                 float bgDX = dX;
 
-                if (isOpened) {
+                if (isOpened)
+                {
                     bgDX += CURRENT_WINDOW_SIZE;
                 }
 
                 Log.d(TAG, String.format("handleBackground: [opened: %s], [dX: %f], [lastXPos: %f]", isOpened, bgDX, lastXPos));
 
                 canvas.drawRect(
-                        (float) itemView.getRight() + bgDX ,
+                        (float) itemView.getRight() + bgDX,
                         (float) itemView.getTop(),
                         (float) itemView.getRight(),
                         (float) itemView.getBottom(),
@@ -187,29 +197,39 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.StadiumV
         {
             float realX = dX;
 
-            if (!isCurrentlyActive) {
-                if (isVirtualOpened) {
+            if (! isCurrentlyActive)
+            {
+                if (isVirtualOpened)
+                {
 
-                    if (realX > CURRENT_WINDOW_SIZE) {
+                    if (realX > CURRENT_WINDOW_SIZE)
+                    {
                         realX = CURRENT_WINDOW_SIZE;
                         isOpened = true;
                         //lastXPos = realX;
                     }
                     lastXPos = realX;
 
-
-                } else {
+                }
+                else
+                {
                     lastXPos = realX;
                 }
-            } else if (isCurrentlyActive) {
+            }
+            else if (isCurrentlyActive)
+            {
 
-                if (realX < CURRENT_WINDOW_SIZE) {
+                if (realX < CURRENT_WINDOW_SIZE)
+                {
                     isVirtualOpened = true;
-                } else {
+                }
+                else
+                {
                     isVirtualOpened = false;
                 }
 
-                if (isOpened) {
+                if (isOpened)
+                {
                     realX += CURRENT_WINDOW_SIZE;
                     isVirtualOpened = true;
                 }
@@ -222,98 +242,14 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.StadiumV
                                      isCurrentlyActive));
 
             defaultUIUtil.onDraw(canvas, recyclerView, viewHolder.itemView, realX, dY, actionState, isCurrentlyActive);
-
-
-
-
-
-
-//            if (!isCurrentlyActive) {
-//                float realX = dX;
-//
-//
-//                if (isOpened) {
-//                    realX = dX + CURRENT_WINDOW_SIZE;
-//                }
-//
-//                Log.d(TAG, String.format("onChildDraw: [opened: %s] [opening: %s], [dX: %f], [dY: %f], [active: %s] ---",
-//                                         isOpened,
-//                                         isOpening(realX),
-//                                         realX,
-//                                         dY,
-//                                         isCurrentlyActive)
-//                     );
-//
-//                defaultUIUtil.onDraw(canvas, recyclerView, viewHolder.itemView, realX, dY, actionState, isCurrentlyActive);
-//            } else {
-//                float realX = dX;
-//
-//                if (isOpening(dX)) {
-//                    realX = dX;
-//
-//                    if (isOpened) {
-//                        realX = dX + CURRENT_WINDOW_SIZE;
-//                    }
-//                }
-//
-//                Log.d(TAG, String.format("onChildDraw: [opened: %s] [opening: %s], [dX: %f], [dY: %f], [active: %s]",
-//                                         isOpened,
-//                                         isOpening(realX),
-//                                         realX,
-//                                         dY,
-//                                         isCurrentlyActive)
-//                     );
-//
-//                defaultUIUtil.onDraw(canvas, recyclerView, viewHolder.itemView, realX, dY, actionState, isCurrentlyActive);
-//            }
         }
 
-//        private boolean isOpening(float dX)
-//        {
-//            boolean result = false;
-//
-//            if (dX <= 0 && dX <= lastXPos) {
-//                result = true;
-//            }
-//
-//            //lastXPos = dX;
-//            return result;
-//        }
-
-        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction)
+        {
             Log.d(TAG, "onSwiped: " + direction);
             lastXPos = 0;
         }
-
-        @NonNull
-        private String getAnimationTypeString(int animationType)
-        {
-            if (animationType == ItemTouchHelper.ANIMATION_TYPE_SWIPE_SUCCESS) {
-                return "ANIMATION_TYPE_SWIPE_SUCCESS";
-            } else {
-                return "ANIMATION_TYPE_SWIPE_CANCEL";
-            }
-        }
-
-        @NonNull
-        private String getActionString(int actionState)
-        {
-            if (actionState == ItemTouchHelper.ACTION_STATE_IDLE)
-            {
-                return "ACTION_STATE_IDLE";
-            }
-            else if (actionState == ItemTouchHelper.ACTION_STATE_DRAG)
-            {
-                return "ACTION_STATE_DRAG";
-            }
-            else
-            {
-                return "ACTION_STATE_SWIPE";
-            }
-        }
-
     }
-
 
 }
 
