@@ -61,7 +61,7 @@ public class CustomRecyclerView extends RecyclerView
     @Override
     public void onScrollStateChanged(int state)
     {
-        if (state == RecyclerView.SCROLL_STATE_IDLE || state == RecyclerView.SCROLL_STATE_DRAGGING) {
+        if (state == RecyclerView.SCROLL_STATE_DRAGGING) {
             getStadiumAdapter().handleState(-1);
         }
         super.onScrollStateChanged(state);
