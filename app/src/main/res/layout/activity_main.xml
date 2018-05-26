@@ -2,7 +2,7 @@
 <br.com.luisfernandez.recyclerview.std.CustomRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/recyclerView"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#66FFF000"
+    android:background="#7E53ED"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="br.com.luisfernandez.recyclerview.std.MainActivity" />
