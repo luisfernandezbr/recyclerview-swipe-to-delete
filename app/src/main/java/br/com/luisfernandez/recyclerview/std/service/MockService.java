@@ -10,10 +10,15 @@ import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,38 +33,48 @@ public class MockService
 
     private Context context;
 
-    public MockService(Context context) {
+    public MockService(Context context)
+    {
         this.context = context;
     }
 
-    public void loadStadiumList(final DataCallback<List<Stadium>> dataCallback) {
+    public void loadStadiumList(final DataCallback<List<Stadium>> dataCallback)
+    {
         @SuppressLint("StaticFieldLeak")
-        AsyncTask<Void, Void, List<Stadium>> asyncTask = new AsyncTask<Void, Void, List<Stadium>>() {
+        AsyncTask<Void, Void, List<Stadium>> asyncTask = new AsyncTask<Void, Void, List<Stadium>>()
+        {
             @Override
-            protected List<Stadium> doInBackground(Void... params) {
+            protected List<Stadium> doInBackground(Void... params)
+            {
                 List<Stadium> list = new ArrayList<>();
 
-                try {
+                try
+                {
                     String json = AndroidUtil.getJsonFromRaw(context, R.raw.stadium_list);
                     list = getStadiumListFrom(json);
-                } catch (IOException e) {
+                }
+                catch (IOException e)
+                {
                     Log.e(TAG, "Error loading mock json", e);
                 }
 
                 return list;
             }
 
-            private List<Stadium> getStadiumListFrom(String json) {
+            private List<Stadium> getStadiumListFrom(String json)
+            {
                 Gson gson = new Gson();
 
-                Type type = new TypeToken<List<Stadium>>() {
+                Type type = new TypeToken<List<Stadium>>()
+                {
                 }.getType();
 
                 return gson.fromJson(json, type);
             }
 
             @Override
-            protected void onPostExecute(List<Stadium> stadiumList) {
+            protected void onPostExecute(List<Stadium> stadiumList)
+            {
                 super.onPostExecute(stadiumList);
                 dataCallback.onLoadSuccess(stadiumList);
             }
@@ -68,17 +83,98 @@ public class MockService
         asyncTask.execute();
     }
 
-    public void loadCountryList(final DataCallback<List<Country>> dataCallback) {
-        @SuppressLint("StaticFieldLeak")
-        AsyncTask<Void, Void, List<Country>> asyncTask = new AsyncTask<Void, Void, List<Country>>() {
-            @Override
-            protected List<Country> doInBackground(Void... params) {
-                List<Country> list = null;
+//    public void loadCountryList(final DataCallback<List<Country>> dataCallback)
+//    {
+//        @SuppressLint("StaticFieldLeak")
+//        AsyncTask<Void, Void, List<Country>> asyncTask = new AsyncTask<Void, Void, List<Country>>()
+//        {
+//            @Override
+//            protected List<Country> doInBackground(Void... params)
+//            {
+//                List<Country> list = null;
+//                String result = "";
+//
+//                try
+//                {
+//                    URL url = new URL("https://restcountries.eu/rest/v2/all");
+//                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+//                    try
+//                    {
+//                        InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+//                        if (in != null)
+//                        {
+//                            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+//                            String line = "";
+//
+//                            while ((line = bufferedReader.readLine()) != null)
+//                            {
+//                                result += line;
+//                            }
+//                        }
+//                        in.close();
+//                    }
+//                    finally
+//                    {
+//                        urlConnection.disconnect();
+//                    }
+//
+//                    String json = result;
+//                    list = getStadiumListFrom(json);
+//                }
+//                catch (IOException e)
+//                {
+//                    Log.e(TAG, "Error loading mock json", e);
+//                }
+//                catch (JSONException e)
+//                {
+//                    e.printStackTrace();
+//                }
+//
+//                return list;
+//            }
+//
+//            private List<Country> getStadiumListFrom(String json) throws JSONException
+//            {
+//                List<Country> list = new ArrayList<>();
+//                JSONArray jsonArray = new JSONArray(json);
+//
+//                for (int i = 0; i < jsonArray.length(); i++)
+//                {
+//                    list.add(new Country(jsonArray.optJSONObject(i)));
+//                }
+//
+//                return list;
+//            }
+//
+//            @Override
+//            protected void onPostExecute(List<Country> stadiumList)
+//            {
+//                super.onPostExecute(stadiumList);
+//                dataCallback.onLoadSuccess(stadiumList);
+//            }
+//        };
+//
+//        asyncTask.execute();
+//    }
 
-                try {
+    public void loadCountryList(final DataCallback<List<Country>> dataCallback)
+    {
+        @SuppressLint("StaticFieldLeak")
+        AsyncTask<Void, Void, List<Country>> asyncTask = new AsyncTask<Void, Void, List<Country>>()
+        {
+            @Override
+            protected List<Country> doInBackground(Void... params)
+            {
+                List<Country> list = null;
+                String result = "";
+
+                try
+                {
                     String json = AndroidUtil.getJsonFromRaw(context, R.raw.country_list);
                     list = getStadiumListFrom(json);
-                } catch (IOException e) {
+                }
+                catch (IOException e)
+                {
                     Log.e(TAG, "Error loading mock json", e);
                 }
                 catch (JSONException e)
@@ -103,7 +199,8 @@ public class MockService
             }
 
             @Override
-            protected void onPostExecute(List<Country> stadiumList) {
+            protected void onPostExecute(List<Country> stadiumList)
+            {
                 super.onPostExecute(stadiumList);
                 dataCallback.onLoadSuccess(stadiumList);
             }
@@ -112,7 +209,8 @@ public class MockService
         asyncTask.execute();
     }
 
-    public interface DataCallback<TYPE> {
+    public interface DataCallback<TYPE>
+    {
         void onLoadSuccess(TYPE data);
     }
 }
