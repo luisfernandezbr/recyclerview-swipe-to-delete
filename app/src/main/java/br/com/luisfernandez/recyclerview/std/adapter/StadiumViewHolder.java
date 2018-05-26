@@ -193,8 +193,10 @@ public class StadiumViewHolder extends RecyclerView.ViewHolder implements Stadiu
 
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction)
     {
+
         Log.d(TAG, "onSwiped: " + direction);
         setLastXPos(0);
+
     }
 
     @Override

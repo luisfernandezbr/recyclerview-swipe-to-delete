@@ -39,14 +39,8 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(this.getSimpleCallback());
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new AppSimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, recyclerView));
 
         itemTouchHelper.attachToRecyclerView(recyclerView);
-    }
-
-    @NonNull
-    private ItemTouchHelper.SimpleCallback getSimpleCallback()
-    {
-        return new AppSimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
     }
 }

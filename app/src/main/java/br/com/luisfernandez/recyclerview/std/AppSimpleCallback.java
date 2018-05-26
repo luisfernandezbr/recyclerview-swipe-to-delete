@@ -25,10 +25,12 @@ import br.com.luisfernandez.recyclerview.std.adapter.StadiumViewHolder;
 public class AppSimpleCallback extends ItemTouchHelper.SimpleCallback
 {
     public static final String TAG = "AppSimpleCallback";
+    private final CustomRecyclerView recyclerView;
 
-    public AppSimpleCallback(int dragDirs, int swipeDirs)
+    public AppSimpleCallback(int dragDirs, int swipeDirs, CustomRecyclerView recyclerView)
     {
         super(dragDirs, swipeDirs);
+        this.recyclerView = recyclerView;
     }
 
     @Override
@@ -42,6 +44,7 @@ public class AppSimpleCallback extends ItemTouchHelper.SimpleCallback
     {
         StadiumViewHolder viewHolder1 = (StadiumViewHolder) viewHolder;
         viewHolder1.onSwiped(viewHolder, direction);
+        ((StadiumAdapter) recyclerView.getAdapter()).removeAt(viewHolder.getAdapterPosition());
     }
 
     @Override

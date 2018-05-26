@@ -38,14 +38,16 @@ public class CustomRecyclerView extends RecyclerView
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e)
     {
+
+
         View viewSwipedRight = this.findChildViewUnder(e.getX() - this.getWidth(), e.getY());
         if (viewSwipedRight != null && e.getAction() == MotionEvent.ACTION_DOWN) {
-            int position = (int) viewSwipedRight.getTag();
+            int position = (int) viewSwipedRight.getTag(R.id.tag_position);
 
             Log.d(TAG, "onTouchPosition: " + position);
-//            StadiumAdapter stadiumAdapter = (StadiumAdapter) getAdapter();
-//            stadiumAdapter.removeAt(position);
-//            stadiumAdapter.notifyDataSetChanged();
+            StadiumAdapter stadiumAdapter = (StadiumAdapter) getAdapter();
+            stadiumAdapter.removeAt(position);
+            //stadiumAdapter.notifyDataSetChanged();
             //stadiumAdapter.notifyItemRemoved(position);
 
             Toast.makeText(getContext(), "CLICKED", Toast.LENGTH_LONG).show();

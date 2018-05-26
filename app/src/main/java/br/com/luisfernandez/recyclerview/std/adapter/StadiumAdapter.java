@@ -57,11 +57,14 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumViewHolder>
     @Override
     public void onBindViewHolder(StadiumViewHolder holder, int position)
     {
-        Log.d(TAG, "TEST onBindViewHolder: ");
+        Log.d(TAG, "TEST onBindViewHolder: " + holder.getAdapterPosition() + ", tag: " + holder.itemView.getTag(R.id.tag_position));
         //holder.clearSwipeState();
 
 
-        holder.itemView.setTag(position);
+        holder.itemView.setTag(R.id.tag_position, holder.getAdapterPosition());
+
+        Log.d(TAG, "TEST onBindViewHolder: " + holder.getAdapterPosition() + ", tag: " + holder.itemView.getTag(R.id.tag_position));
+        Log.d(TAG, "");
 
         if (holder.itemView.getTag(R.id.tag_state) == null) {
             holder.itemView.setTag(R.id.tag_state, new SwipeToDeleteState());
@@ -93,6 +96,8 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumViewHolder>
 
     public void removeAt(int position) {
         stadiumList.remove(position);
+        notifyDataSetChanged();
+        //notifyItemRemoved(position);
     }
 
     public void handleState(int adapterPosition) {

@@ -5,4 +5,5 @@
 
 
     <id name="tag_state"/>
+    <id name="tag_position"/>
 </resources>
