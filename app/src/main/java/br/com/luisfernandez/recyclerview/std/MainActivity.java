@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        final CustomRecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         new MockService(this).loadStadiumList(new MockService.DataCallback<List<Stadium>>()

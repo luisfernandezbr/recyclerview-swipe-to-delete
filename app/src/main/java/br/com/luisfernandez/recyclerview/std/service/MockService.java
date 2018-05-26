@@ -1,5 +1,6 @@
 package br.com.luisfernandez.recyclerview.std.service;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -27,6 +28,7 @@ public class MockService
     }
 
     public void loadStadiumList(final DataCallback<List<Stadium>> dataCallback) {
+        @SuppressLint("StaticFieldLeak")
         AsyncTask<Void, Void, List<Stadium>> asyncTask = new AsyncTask<Void, Void, List<Stadium>>() {
             @Override
             protected List<Stadium> doInBackground(Void... params) {

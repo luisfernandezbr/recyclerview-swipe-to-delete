@@ -64,6 +64,8 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.StadiumV
     @Override
     public void onBindViewHolder(StadiumViewHolder holder, int position)
     {
+        holder.itemView.setTag(position);
+
         Stadium stadium = this.getItem(position);
 
         holder.textName.setText(stadium.getName());
@@ -88,10 +90,14 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.StadiumV
         return stadiumList.get(position);
     }
 
+    public void removeAt(int position) {
+        stadiumList.remove(position);
+    }
+
     public static class StadiumViewHolder extends RecyclerView.ViewHolder
     {
 
-        public static final int CURRENT_WINDOW_SIZE = - 180;
+        public static final int CURRENT_WINDOW_SIZE = - 300;
 
         TextView textName;
         TextView textCapacity;
@@ -167,7 +173,7 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.StadiumV
             if (isSwipingToLeft(dX))
             {
                 Paint p = new Paint();
-                p.setARGB(155, 0, 0, 255);
+                p.setARGB(255, 126, 83, 237);
 
                 float bgDX = dX;
 
