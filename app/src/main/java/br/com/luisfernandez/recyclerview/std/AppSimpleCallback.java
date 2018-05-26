@@ -42,8 +42,9 @@ public class AppSimpleCallback extends ItemTouchHelper.SimpleCallback
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction)
     {
+        Log.d(TAG, "onSwiped: " + direction);
         StadiumViewHolder viewHolder1 = (StadiumViewHolder) viewHolder;
-        viewHolder1.onSwiped(viewHolder, direction);
+        viewHolder1.clearSwipeState();
         ((StadiumAdapter) recyclerView.getAdapter()).removeAt(viewHolder.getAdapterPosition());
     }
 
@@ -106,16 +107,6 @@ public class AppSimpleCallback extends ItemTouchHelper.SimpleCallback
         }
     }
 
-    private void log(float dX, float dY, int actionState, boolean isCurrentlyActive)
-    {
-        Log.d(TAG, String.format("onChildDraw: [dX: %f], [dY: %f], [actionState: %s], [active: %s]",
-                                 dX,
-                                 dY,
-                                 getActionString(actionState),
-                                 isCurrentlyActive)
-             );
-    }
-
     @Override
     public long getAnimationDuration(RecyclerView recyclerView, int animationType, float animateDx, float animateDy)
     {
@@ -134,23 +125,6 @@ public class AppSimpleCallback extends ItemTouchHelper.SimpleCallback
             return "ANIMATION_TYPE_SWIPE_SUCCESS";
         } else {
             return "ANIMATION_TYPE_SWIPE_CANCEL";
-        }
-    }
-
-    @NonNull
-    private String getActionString(int actionState)
-    {
-        if (actionState == ItemTouchHelper.ACTION_STATE_IDLE)
-        {
-            return "ACTION_STATE_IDLE";
-        }
-        else if (actionState == ItemTouchHelper.ACTION_STATE_DRAG)
-        {
-            return "ACTION_STATE_DRAG";
-        }
-        else
-        {
-            return "ACTION_STATE_SWIPE";
         }
     }
 }

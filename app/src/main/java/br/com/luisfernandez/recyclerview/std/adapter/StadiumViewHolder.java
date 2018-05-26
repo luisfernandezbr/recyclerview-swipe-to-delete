@@ -50,21 +50,6 @@ public class StadiumViewHolder extends RecyclerView.ViewHolder implements Stadiu
     {
         Log.d(TAG, "LUIS onChildDraw: " + actionState + ", position: " + adapterPosition + ", real: " + viewHolder.getAdapterPosition());
 
-
-//        int currentAdapterPosition = ((StadiumAdapter) recyclerView.getAdapter()).getCurrentAdapterPosition();
-//        int adapterPosition = viewHolder.getAdapterPosition();
-//
-//        Log.d(TAG, String.format("positions: [last: %d] [new: %d]", currentAdapterPosition, adapterPosition));
-//
-//        if (currentAdapterPosition != adapterPosition)
-//        {
-//            recyclerView.getAdapter().notifyItemChanged(currentAdapterPosition);
-//            isVirtualOpened = isOpened = false;
-//            lastXPos = 0;
-//        }
-//
-//        ((StadiumAdapter) recyclerView.getAdapter()).setCurrentAdapterPosition(adapterPosition);
-
         ((StadiumAdapter) recyclerView.getAdapter()).handleState(viewHolder.getAdapterPosition(), this);
 
         if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE)
@@ -178,13 +163,6 @@ public class StadiumViewHolder extends RecyclerView.ViewHolder implements Stadiu
                                  isCurrentlyActive));
 
         defaultUIUtil.onDraw(canvas, recyclerView, viewHolder.itemView, realX, dY, actionState, isCurrentlyActive);
-    }
-
-    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction)
-    {
-
-        Log.d(TAG, "onSwiped: " + direction);
-        clearSwipeState();
     }
 
     @Override

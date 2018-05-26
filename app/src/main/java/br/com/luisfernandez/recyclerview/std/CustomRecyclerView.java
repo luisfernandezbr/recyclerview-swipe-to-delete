@@ -49,14 +49,6 @@ public class CustomRecyclerView extends RecyclerView
             viewHolder.clearSwipeState();
             ((StadiumAdapter) getAdapter()).removeAt(viewHolder.getAdapterPosition());
 
-
-            //int position = getChildAdapterPosition(viewSwipedRight);
-            //Log.d(TAG, "onTouchPosition: " + position + " [x: " + e.getX() + "] [y: " + e.getY() + "]");
-
-//            ((StadiumViewHolder) getChildViewHolder(viewSwipedRight)).clearSwipeState();
-//            StadiumAdapter stadiumAdapter = (StadiumAdapter) getAdapter();
-//            stadiumAdapter.removeAt(position);
-
             Toast.makeText(getContext(), "CLICKED", Toast.LENGTH_LONG).show();
         }
 

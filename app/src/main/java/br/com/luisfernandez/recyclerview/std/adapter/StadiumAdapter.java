@@ -20,7 +20,6 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumViewHolder>
 {
     private static final String TAG = "StadiumAdapter";
 
-    private Context context;
     private List<Country> stadiumList;
 
     private int currentAdapterPosition = - 1;
@@ -35,9 +34,8 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumViewHolder>
         this.currentAdapterPosition = currentAdapterPosition;
     }
 
-    public StadiumAdapter(Context context, List<Country> stadiumList)
+    public StadiumAdapter(List<Country> stadiumList)
     {
-        this.context = context;
         this.stadiumList = stadiumList;
     }
 

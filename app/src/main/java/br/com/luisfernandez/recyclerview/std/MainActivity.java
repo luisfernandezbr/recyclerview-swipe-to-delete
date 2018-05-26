@@ -1,20 +1,14 @@
 package br.com.luisfernandez.recyclerview.std;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 
 import java.util.List;
 
 import br.com.luisfernandez.recyclerview.std.adapter.StadiumAdapter;
 import br.com.luisfernandez.recyclerview.std.pojo.Country;
-import br.com.luisfernandez.recyclerview.std.pojo.Stadium;
 import br.com.luisfernandez.recyclerview.std.service.MockService;
 
 public class MainActivity extends AppCompatActivity
@@ -36,12 +30,12 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onLoadSuccess(List<Country> data)
             {
-                recyclerView.setAdapter(new StadiumAdapter(MainActivity.this, data));
+                recyclerView.setAdapter(new StadiumAdapter(data));
             }
         });
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new AppSimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, recyclerView));
-
+        AppSimpleCallback appSimpleCallback = new AppSimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, recyclerView);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(appSimpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 }
