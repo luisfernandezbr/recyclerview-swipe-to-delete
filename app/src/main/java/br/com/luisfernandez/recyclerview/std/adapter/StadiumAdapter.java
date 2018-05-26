@@ -1,19 +1,16 @@
 package br.com.luisfernandez.recyclerview.std.adapter;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 import br.com.luisfernandez.recyclerview.std.R;
-import br.com.luisfernandez.recyclerview.std.pojo.Stadium;
+import br.com.luisfernandez.recyclerview.std.pojo.Country;
 
 /**
  * Created by luisfernandez on 24/05/18.
@@ -24,7 +21,7 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumViewHolder>
     private static final String TAG = "StadiumAdapter";
 
     private Context context;
-    private List<Stadium> stadiumList;
+    private List<Country> stadiumList;
 
     private int currentAdapterPosition = - 1;
 
@@ -38,7 +35,7 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumViewHolder>
         this.currentAdapterPosition = currentAdapterPosition;
     }
 
-    public StadiumAdapter(Context context, List<Stadium> stadiumList)
+    public StadiumAdapter(Context context, List<Country> stadiumList)
     {
         this.context = context;
         this.stadiumList = stadiumList;
@@ -51,7 +48,7 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumViewHolder>
     {
         Log.d(TAG, "TEST onCreateViewHolder: " + (++count));
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item_stadium_list, parent, false);
+        View view = inflater.inflate(R.layout.item_country_list, parent, false);
 
         return new StadiumViewHolder(view);
     }
@@ -74,17 +71,11 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumViewHolder>
             holder.clearSwipeState();
         }
 
-        Stadium stadium = this.getItem(position);
+        Country stadium = this.getItem(position);
 
         holder.textName.setText(stadium.getName());
-        holder.textCapacity.setText(String.valueOf(stadium.getCapacity()));
-        holder.textFoundationDate.setText(stadium.getFoundation());
-
-        Resources res = context.getResources();
-        String quantityString = res.getQuantityString(R.plurals.text_like_plural, stadium.getLikes(), stadium.getLikes());
-        holder.textLikeCount.setText(quantityString);
-
-        Picasso.with(context).load(stadium.getIconUrl()).into(holder.imageStadiumPhoto);
+        holder.textCurrency.setText(stadium.getCurrency());
+        holder.textLanguage.setText(stadium.getLanguage());
     }
 
     @Override
@@ -93,7 +84,7 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumViewHolder>
         return stadiumList.size();
     }
 
-    private Stadium getItem(int position)
+    private Country getItem(int position)
     {
         return stadiumList.get(position);
     }

@@ -24,10 +24,9 @@ public class StadiumViewHolder extends RecyclerView.ViewHolder implements Stadiu
     public static final int CURRENT_WINDOW_SIZE = - 320;
 
     TextView textName;
-    TextView textCapacity;
-    TextView textFoundationDate;
-    TextView textLikeCount;
-    ImageView imageStadiumPhoto;
+    TextView textCurrency;
+    TextView textLanguage;
+
     private int adapterPosition;
 
     public StadiumViewHolder(View itemView)
@@ -36,10 +35,8 @@ public class StadiumViewHolder extends RecyclerView.ViewHolder implements Stadiu
         Log.d(TAG, "onNew StadiumViewHolder: ");
 
         this.textName = itemView.findViewById(R.id.textName);
-        this.textCapacity = itemView.findViewById(R.id.textCapacity);
-        this.textFoundationDate = itemView.findViewById(R.id.textFoundationDate);
-        this.textLikeCount = itemView.findViewById(R.id.textLikes);
-        this.imageStadiumPhoto = itemView.findViewById(R.id.imageIcon);
+        this.textCurrency = itemView.findViewById(R.id.textCurrency);
+        this.textLanguage = itemView.findViewById(R.id.textLanguage);
     }
 
     public void onChildDraw(

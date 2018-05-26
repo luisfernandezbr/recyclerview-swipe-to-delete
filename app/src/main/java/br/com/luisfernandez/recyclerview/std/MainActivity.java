@@ -13,6 +13,7 @@ import android.util.Log;
 import java.util.List;
 
 import br.com.luisfernandez.recyclerview.std.adapter.StadiumAdapter;
+import br.com.luisfernandez.recyclerview.std.pojo.Country;
 import br.com.luisfernandez.recyclerview.std.pojo.Stadium;
 import br.com.luisfernandez.recyclerview.std.service.MockService;
 
@@ -30,10 +31,10 @@ public class MainActivity extends AppCompatActivity
         final CustomRecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        new MockService(this).loadStadiumList(new MockService.DataCallback<List<Stadium>>()
+        new MockService(this).loadCountryList(new MockService.DataCallback<List<Country>>()
         {
             @Override
-            public void onLoadSuccess(List<Stadium> data)
+            public void onLoadSuccess(List<Country> data)
             {
                 recyclerView.setAdapter(new StadiumAdapter(MainActivity.this, data));
             }
