@@ -38,29 +38,7 @@ public class MainActivity extends AppCompatActivity
                 recyclerView.setAdapter(new StadiumAdapter(MainActivity.this, data));
             }
         });
-
-        ItemTouchHelper.Callback callback = new ItemTouchHelper.Callback()
-        {
-            @Override
-            public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder)
-            {
-                Log.d(TAG, "getMovementFlags: ");
-                return 0;
-            }
-
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target)
-            {
-                Log.d(TAG, "onMove: ");
-                return false;
-            }
-
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction)
-            {
-                Log.d(TAG, "onSwiped: ");
-            }
-        };
+        
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(this.getSimpleCallback());
 
         itemTouchHelper.attachToRecyclerView(recyclerView);
@@ -69,6 +47,6 @@ public class MainActivity extends AppCompatActivity
     @NonNull
     private ItemTouchHelper.SimpleCallback getSimpleCallback()
     {
-        return new AppSimpleCallback(0, ItemTouchHelper.LEFT);
+        return new AppSimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
     }
 }
