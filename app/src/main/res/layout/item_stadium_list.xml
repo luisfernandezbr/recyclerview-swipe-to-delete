@@ -11,8 +11,8 @@
 
     <ImageView
         android:id="@+id/imageIcon"
-        android:layout_width="32dp"
-        android:layout_height="24dp"
+        android:layout_width="200dp"
+        android:layout_height="160dp"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/activity_vertical_margin"
         android:background="@drawable/placeholder"

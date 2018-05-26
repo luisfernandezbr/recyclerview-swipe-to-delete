@@ -54,10 +54,16 @@ public class CustomRecyclerView extends RecyclerView
         return super.onInterceptTouchEvent(e);
     }
 
-    @Override
-    protected void onScrollChanged(int l, int t, int oldl, int oldt)
-    {
+    private StadiumAdapter getStadiumAdapter() {
+        return (StadiumAdapter) getAdapter();
+    }
 
-        super.onScrollChanged(l, t, oldl, oldt);
+    @Override
+    public void onScrollStateChanged(int state)
+    {
+        if (state == RecyclerView.SCROLL_STATE_IDLE || state == RecyclerView.SCROLL_STATE_DRAGGING) {
+            getStadiumAdapter().handleState(-1);
+        }
+        super.onScrollStateChanged(state);
     }
 }

@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 
 import br.com.luisfernandez.recyclerview.std.adapter.StadiumAdapter;
+import br.com.luisfernandez.recyclerview.std.adapter.StadiumViewHolder;
 
 /**
  * Created by luisfernandez on 25/05/18.
@@ -39,7 +40,7 @@ public class AppSimpleCallback extends ItemTouchHelper.SimpleCallback
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction)
     {
-        StadiumAdapter.StadiumViewHolder viewHolder1 = (StadiumAdapter.StadiumViewHolder) viewHolder;
+        StadiumViewHolder viewHolder1 = (StadiumViewHolder) viewHolder;
         viewHolder1.onSwiped(viewHolder, direction);
     }
 
@@ -53,28 +54,8 @@ public class AppSimpleCallback extends ItemTouchHelper.SimpleCallback
             int actionState,
             boolean isCurrentlyActive)
     {
-        //log(dX, dY, actionState, isCurrentlyActive);
-
-        StadiumAdapter.StadiumViewHolder viewHolder1 = (StadiumAdapter.StadiumViewHolder) viewHolder;
+        StadiumViewHolder viewHolder1 = (StadiumViewHolder) viewHolder;
         viewHolder1.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive, getDefaultUIUtil());
-
-
-        //handleOnChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-
-
-
-
-
-//
-//        if (!isCurrentlyActive || actionState == ItemTouchHelper.ACTION_STATE_IDLE)
-//        {
-//            viewHolder.itemView.setBackgroundColor(Color.LTGRAY);
-//        } else if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE)
-//        {
-//            viewHolder.itemView.setBackgroundColor(Color.GREEN);
-//        }
-
-        //super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
     }
 
     private void handleOnChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState,

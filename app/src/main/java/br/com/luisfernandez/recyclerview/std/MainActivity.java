@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity
                 recyclerView.setAdapter(new StadiumAdapter(MainActivity.this, data));
             }
         });
-        
+
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(this.getSimpleCallback());
 
         itemTouchHelper.attachToRecyclerView(recyclerView);
