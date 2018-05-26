@@ -131,16 +131,18 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.StadiumV
                 boolean isCurrentlyActive, ItemTouchUIUtil defaultUIUtil)
         {
             int currentAdapterPosition = ((StadiumAdapter) recyclerView.getAdapter()).getCurrentAdapterPosition();
-            Log.d(TAG, String.format("positions: [last: %d] [new: %d]", currentAdapterPosition, viewHolder.getAdapterPosition()));
+            int adapterPosition = viewHolder.getAdapterPosition();
 
-            if (currentAdapterPosition != viewHolder.getAdapterPosition())
+            Log.d(TAG, String.format("positions: [last: %d] [new: %d]", currentAdapterPosition, adapterPosition));
+
+            if (currentAdapterPosition != adapterPosition)
             {
                 recyclerView.getAdapter().notifyItemChanged(currentAdapterPosition);
                 isVirtualOpened = isOpened = false;
                 lastXPos = 0;
-
             }
-            ((StadiumAdapter) recyclerView.getAdapter()).setCurrentAdapterPosition(viewHolder.getAdapterPosition());
+
+            ((StadiumAdapter) recyclerView.getAdapter()).setCurrentAdapterPosition(adapterPosition);
 
             if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE)
             {
@@ -196,14 +198,14 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.StadiumV
                 int iconMargin = 60;
 
                 Drawable d = itemView.getResources().getDrawable(R.drawable.vector_explode);
-                
+
                 int bottomPosition = itemView.getBottom() - iconMargin;
                 int topPosition = itemView.getTop() + iconMargin;
                 int height = bottomPosition - topPosition;
                 int rightPosition = itemView.getRight() - iconMargin;
                 int leftPosition = rightPosition - (540 * height / 400);
 
-                d.setBounds( leftPosition,
+                d.setBounds(leftPosition,
                             topPosition,
                             rightPosition,
                             bottomPosition);
@@ -225,7 +227,6 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.StadiumV
             {
                 if (isVirtualOpened)
                 {
-
                     if (realX > CURRENT_WINDOW_SIZE)
                     {
                         realX = CURRENT_WINDOW_SIZE;
@@ -233,7 +234,6 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.StadiumV
                         //lastXPos = realX;
                     }
                     lastXPos = realX;
-
                 }
                 else
                 {
