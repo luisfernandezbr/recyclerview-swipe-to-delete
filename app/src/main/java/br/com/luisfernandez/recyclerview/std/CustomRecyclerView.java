@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import br.com.luisfernandez.recyclerview.std.adapter.StadiumAdapter;
+import br.com.luisfernandez.recyclerview.std.adapter.StadiumViewHolder;
 
 /**
  * Created by luisfernandez on 25/05/18.
@@ -36,23 +37,35 @@ public class CustomRecyclerView extends RecyclerView
     }
 
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent e)
+    public boolean onTouchEvent(MotionEvent e)
     {
-
+        Log.d(TAG, "onInterceptTouchEvent: " + e.getAction());
 
         View viewSwipedRight = this.findChildViewUnder(e.getX() - this.getWidth(), e.getY());
-        if (viewSwipedRight != null && e.getAction() == MotionEvent.ACTION_DOWN) {
-            int position = (int) viewSwipedRight.getTag(R.id.tag_position);
 
-            Log.d(TAG, "onTouchPosition: " + position);
-            StadiumAdapter stadiumAdapter = (StadiumAdapter) getAdapter();
-            stadiumAdapter.removeAt(position);
-            //stadiumAdapter.notifyDataSetChanged();
-            //stadiumAdapter.notifyItemRemoved(position);
+        if (viewSwipedRight != null && e.getAction() == MotionEvent.ACTION_UP) {
+            ViewHolder holder = findContainingViewHolder(viewSwipedRight);
+            StadiumViewHolder viewHolder = (StadiumViewHolder) holder;
+            viewHolder.clearSwipeState();
+            ((StadiumAdapter) getAdapter()).removeAt(viewHolder.getAdapterPosition());
+
+
+            //int position = getChildAdapterPosition(viewSwipedRight);
+            //Log.d(TAG, "onTouchPosition: " + position + " [x: " + e.getX() + "] [y: " + e.getY() + "]");
+
+//            ((StadiumViewHolder) getChildViewHolder(viewSwipedRight)).clearSwipeState();
+//            StadiumAdapter stadiumAdapter = (StadiumAdapter) getAdapter();
+//            stadiumAdapter.removeAt(position);
 
             Toast.makeText(getContext(), "CLICKED", Toast.LENGTH_LONG).show();
         }
 
+        return super.onTouchEvent(e);
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent e)
+    {
         return super.onInterceptTouchEvent(e);
     }
 

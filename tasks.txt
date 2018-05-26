@@ -1,3 +1,6 @@
-- Swipe right
+
+- Connect HTTP and parse Data
+- Fix interaction bugs
+-- Scroll RecyclerView needs to cancel state
 - Config anchor point
--
+- Fix Swipe right

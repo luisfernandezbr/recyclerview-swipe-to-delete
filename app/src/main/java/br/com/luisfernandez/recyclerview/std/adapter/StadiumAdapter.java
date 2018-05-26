@@ -44,10 +44,12 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumViewHolder>
         this.stadiumList = stadiumList;
     }
 
+    static int count = 0;
+
     @Override
     public StadiumViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        Log.d(TAG, "TEST onCreateViewHolder: ");
+        Log.d(TAG, "TEST onCreateViewHolder: " + (++count));
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.item_stadium_list, parent, false);
 
@@ -57,17 +59,19 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumViewHolder>
     @Override
     public void onBindViewHolder(StadiumViewHolder holder, int position)
     {
-        Log.d(TAG, "TEST onBindViewHolder: " + holder.getAdapterPosition() + ", tag: " + holder.itemView.getTag(R.id.tag_position));
+        Log.d(TAG, "TEST onBindViewHolder: " + holder.getAdapterPosition() + ", tag: " + position);
         //holder.clearSwipeState();
 
 
-        holder.itemView.setTag(R.id.tag_position, holder.getAdapterPosition());
+        //holder.itemView.setTag(R.id.tag_position, holder.getAdapterPosition());
 
-        Log.d(TAG, "TEST onBindViewHolder: " + holder.getAdapterPosition() + ", tag: " + holder.itemView.getTag(R.id.tag_position));
+        holder.setPosition(position);
+
         Log.d(TAG, "");
 
         if (holder.itemView.getTag(R.id.tag_state) == null) {
             holder.itemView.setTag(R.id.tag_state, new SwipeToDeleteState());
+            holder.clearSwipeState();
         }
 
         Stadium stadium = this.getItem(position);
@@ -96,8 +100,12 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumViewHolder>
 
     public void removeAt(int position) {
         stadiumList.remove(position);
-        notifyDataSetChanged();
-        //notifyItemRemoved(position);
+        //notifyDataSetChanged();
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, stadiumList.size());
+
+
+        currentAdapterPosition = -1;
     }
 
     public void handleState(int adapterPosition) {
@@ -109,7 +117,7 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumViewHolder>
 
         Log.d(TAG, String.format("positions: [last: %d] [new: %d]", currentAdapterPosition, adapterPosition));
 
-        if (currentAdapterPosition != adapterPosition)
+        if (currentAdapterPosition != adapterPosition && currentAdapterPosition != -1)
         {
             notifyItemChanged(currentAdapterPosition);
 
@@ -124,7 +132,5 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumViewHolder>
     public interface OnNewItemListener {
         void onNewItemFound();
     }
-
-
 }
 

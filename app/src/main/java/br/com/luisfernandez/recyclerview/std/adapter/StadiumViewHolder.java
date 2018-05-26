@@ -28,12 +28,12 @@ public class StadiumViewHolder extends RecyclerView.ViewHolder implements Stadiu
     TextView textFoundationDate;
     TextView textLikeCount;
     ImageView imageStadiumPhoto;
+    private int adapterPosition;
 
     public StadiumViewHolder(View itemView)
     {
         super(itemView);
         Log.d(TAG, "onNew StadiumViewHolder: ");
-
 
         this.textName = itemView.findViewById(R.id.textName);
         this.textCapacity = itemView.findViewById(R.id.textCapacity);
@@ -51,6 +51,9 @@ public class StadiumViewHolder extends RecyclerView.ViewHolder implements Stadiu
             int actionState,
             boolean isCurrentlyActive, ItemTouchUIUtil defaultUIUtil)
     {
+        Log.d(TAG, "LUIS onChildDraw: " + actionState + ", position: " + adapterPosition + ", real: " + viewHolder.getAdapterPosition());
+
+
 //        int currentAdapterPosition = ((StadiumAdapter) recyclerView.getAdapter()).getCurrentAdapterPosition();
 //        int adapterPosition = viewHolder.getAdapterPosition();
 //
@@ -71,25 +74,14 @@ public class StadiumViewHolder extends RecyclerView.ViewHolder implements Stadiu
         {
             View itemView = viewHolder.itemView;
 
-            recyclerView.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    Toast.makeText(v.getContext(), "Wooooowwww", Toast.LENGTH_SHORT).show();
-                }
-            });
-
             viewHolder.itemView.setOnClickListener(new View.OnClickListener()
             {
                 @Override
                 public void onClick(View v)
                 {
-                    Toast.makeText(v.getContext(), "asdasdasd", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), "ITEM CLICKED", Toast.LENGTH_SHORT).show();
                 }
             });
-
-
 
             handleBackground(canvas, dX, itemView);
             handleOnDraw(canvas, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive, defaultUIUtil);
@@ -195,8 +187,7 @@ public class StadiumViewHolder extends RecyclerView.ViewHolder implements Stadiu
     {
 
         Log.d(TAG, "onSwiped: " + direction);
-        setLastXPos(0);
-
+        clearSwipeState();
     }
 
     @Override
@@ -245,5 +236,10 @@ public class StadiumViewHolder extends RecyclerView.ViewHolder implements Stadiu
     private SwipeToDeleteState getState()
     {
         return (SwipeToDeleteState)itemView.getTag(R.id.tag_state);
+    }
+
+    public void setPosition(int adapterPosition)
+    {
+        this.adapterPosition = adapterPosition;
     }
 }
