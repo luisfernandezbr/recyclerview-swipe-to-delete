@@ -48,7 +48,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Opened: "
-                android:visibility="gone"
                 android:textStyle="italic"/>
 
             <TextView
@@ -56,7 +55,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Medium Text"
-                android:visibility="gone"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="italic"
                 tools:text="06/04/2005"/>

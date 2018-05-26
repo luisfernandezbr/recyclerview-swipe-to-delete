@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.support.v7.widget.helper.ItemTouchUIUtil;
@@ -97,7 +98,7 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.StadiumV
     public static class StadiumViewHolder extends RecyclerView.ViewHolder
     {
 
-        public static final int CURRENT_WINDOW_SIZE = - 300;
+        public static final int CURRENT_WINDOW_SIZE = - 320;
 
         TextView textName;
         TextView textCapacity;
@@ -163,6 +164,8 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.StadiumV
                     }
                 });
 
+
+
                 handleBackground(canvas, dX, itemView);
                 handleOnDraw(canvas, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive, defaultUIUtil);
             }
@@ -183,13 +186,28 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.StadiumV
                 }
 
                 Log.d(TAG, String.format("handleBackground: [opened: %s], [dX: %f], [lastXPos: %f]", isOpened, bgDX, lastXPos));
-
                 canvas.drawRect(
                         (float) itemView.getRight() + bgDX,
                         (float) itemView.getTop(),
                         (float) itemView.getRight(),
                         (float) itemView.getBottom(),
                         p);
+
+                int iconMargin = 60;
+
+                Drawable d = itemView.getResources().getDrawable(R.drawable.vector_explode);
+                
+                int bottomPosition = itemView.getBottom() - iconMargin;
+                int topPosition = itemView.getTop() + iconMargin;
+                int height = bottomPosition - topPosition;
+                int rightPosition = itemView.getRight() - iconMargin;
+                int leftPosition = rightPosition - (540 * height / 400);
+
+                d.setBounds( leftPosition,
+                            topPosition,
+                            rightPosition,
+                            bottomPosition);
+                d.draw(canvas);
             }
         }
 
