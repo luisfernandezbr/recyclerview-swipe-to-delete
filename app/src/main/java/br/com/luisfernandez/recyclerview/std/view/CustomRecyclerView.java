@@ -1,4 +1,4 @@
-package br.com.luisfernandez.recyclerview.std;
+package br.com.luisfernandez.recyclerview.std.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

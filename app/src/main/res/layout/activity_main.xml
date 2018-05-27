@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<br.com.luisfernandez.recyclerview.std.CustomRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<br.com.luisfernandez.recyclerview.std.view.CustomRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/recyclerView"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="#7E53ED"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.com.luisfernandez.recyclerview.std.MainActivity" />
+    tools:context="br.com.luisfernandez.recyclerview.std.activity.MainActivity" />

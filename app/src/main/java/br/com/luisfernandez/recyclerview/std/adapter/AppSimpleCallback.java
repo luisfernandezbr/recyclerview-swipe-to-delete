@@ -1,4 +1,4 @@
-package br.com.luisfernandez.recyclerview.std;
+package br.com.luisfernandez.recyclerview.std.adapter;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -14,8 +14,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 
-import br.com.luisfernandez.recyclerview.std.adapter.StadiumAdapter;
-import br.com.luisfernandez.recyclerview.std.adapter.StadiumViewHolder;
+import br.com.luisfernandez.recyclerview.std.view.CustomRecyclerView;
 
 /**
  * Created by luisfernandez on 25/05/18.

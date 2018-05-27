@@ -1,4 +1,4 @@
-package br.com.luisfernandez.recyclerview.std;
+package br.com.luisfernandez.recyclerview.std.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,6 +8,9 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 
 import java.util.List;
 
+import br.com.luisfernandez.recyclerview.std.adapter.AppSimpleCallback;
+import br.com.luisfernandez.recyclerview.std.view.CustomRecyclerView;
+import br.com.luisfernandez.recyclerview.std.R;
 import br.com.luisfernandez.recyclerview.std.adapter.StadiumAdapter;
 import br.com.luisfernandez.recyclerview.std.pojo.Country;
 import br.com.luisfernandez.recyclerview.std.service.MockService;
