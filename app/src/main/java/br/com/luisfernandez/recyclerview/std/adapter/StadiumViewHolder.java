@@ -29,10 +29,19 @@ public class StadiumViewHolder extends RecyclerView.ViewHolder implements Stadiu
 
     private int adapterPosition;
 
-    public StadiumViewHolder(View itemView)
+    private int viewHolderId;
+
+    public int getViewHolderId()
+    {
+        return viewHolderId;
+    }
+
+    public StadiumViewHolder(View itemView, int viewHolderId)
     {
         super(itemView);
         Log.d(TAG, "onNew StadiumViewHolder: ");
+
+        this.viewHolderId = viewHolderId;
 
         this.textName = itemView.findViewById(R.id.textName);
         this.textCurrency = itemView.findViewById(R.id.textCurrency);
@@ -48,15 +57,14 @@ public class StadiumViewHolder extends RecyclerView.ViewHolder implements Stadiu
             int actionState,
             boolean isCurrentlyActive, ItemTouchUIUtil defaultUIUtil)
     {
-        Log.d(TAG, "LUIS onChildDraw: " + actionState + ", position: " + adapterPosition + ", real: " + viewHolder.getAdapterPosition());
+        Log.d(TAG, "LUIS onChildDraw: " + actionState + ", position: " + adapterPosition + ", real: " + viewHolder.getAdapterPosition() + ", holderId: " +
+                viewHolderId);
 
         ((StadiumAdapter) recyclerView.getAdapter()).handleState(viewHolder.getAdapterPosition(), this);
 
         if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE)
         {
-            View itemView = viewHolder.itemView;
-
-            viewHolder.itemView.setOnClickListener(new View.OnClickListener()
+            itemView.setOnClickListener(new View.OnClickListener()
             {
                 @Override
                 public void onClick(View v)
@@ -120,47 +128,42 @@ public class StadiumViewHolder extends RecyclerView.ViewHolder implements Stadiu
     {
         float realX = dX;
 
-        if (! isCurrentlyActive)
+        if (!isCurrentlyActive)
         {
             if (isVirtualOpened())
             {
                 if (realX > CURRENT_WINDOW_SIZE)
                 {
                     realX = CURRENT_WINDOW_SIZE;
-                    setOpened(true);
-                    //lastXPos = realX;
+                    this.setOpened(true);
                 }
-                setLastXPos(realX);
+
             }
-            else
-            {
-                setLastXPos(realX);
-            }
+
+            this.setLastXPos(realX);
         }
-        else if (isCurrentlyActive)
+        else
         {
 
             if (realX < CURRENT_WINDOW_SIZE)
             {
-                setVirtualOpened(true);
+                this.setVirtualOpened(true);
             }
             else
             {
-                setVirtualOpened(false);
+                this.setVirtualOpened(false);
             }
 
-            if (isOpened())
+            if (this.isOpened())
             {
                 realX += CURRENT_WINDOW_SIZE;
-                setVirtualOpened(true);
+                this.setVirtualOpened(true);
             }
 
-            setLastXPos(realX);
+            this.setLastXPos(realX);
         }
 
-        Log.d(TAG, String.format("onChildDraw: [opened: %s], [virtualOpened: %s], [dX: %f], [lastXPos: %f], [active: %s]", isOpened(), isVirtualOpened(),
-                                 realX, getLastXPos(),
-                                 isCurrentlyActive));
+//        Log.d(TAG, String.format("onChildDraw: [opened: %s], [virtualOpened: %s], [dX: %f], [lastXPos: %f], [active: %s]", isOpened(), isVirtualOpened(), realX, getLastXPos(), isCurrentlyActive));
 
         defaultUIUtil.onDraw(canvas, recyclerView, viewHolder.itemView, realX, dY, actionState, isCurrentlyActive);
     }
@@ -173,9 +176,9 @@ public class StadiumViewHolder extends RecyclerView.ViewHolder implements Stadiu
 
     public void clearSwipeState()
     {
-        setVirtualOpened(false);
-        setOpened(false);
-        setLastXPos(0);
+        this.setVirtualOpened(false);
+        this.setOpened(false);
+        this.setLastXPos(0);
     }
 
     public boolean isVirtualOpened()
@@ -216,5 +219,10 @@ public class StadiumViewHolder extends RecyclerView.ViewHolder implements Stadiu
     public void setPosition(int adapterPosition)
     {
         this.adapterPosition = adapterPosition;
+    }
+
+    public int getPos()
+    {
+        return adapterPosition;
     }
 }

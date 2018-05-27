@@ -1,5 +1,6 @@
 package br.com.luisfernandez.recyclerview.std;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +16,6 @@ import br.com.luisfernandez.recyclerview.std.adapter.StadiumViewHolder;
 /**
  * Created by luisfernandez on 25/05/18.
  */
-
 public class CustomRecyclerView extends RecyclerView
 {
 
@@ -36,33 +36,28 @@ public class CustomRecyclerView extends RecyclerView
         super(context, attrs, defStyle);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent e)
     {
-        Log.d(TAG, "onInterceptTouchEvent: " + e.getAction());
+        //Log.d(TAG, "onTouchEvent: " + e.getAction());
 
         View viewSwipedRight = this.findChildViewUnder(e.getX() - this.getWidth(), e.getY());
 
         if (viewSwipedRight != null && e.getAction() == MotionEvent.ACTION_UP) {
+            Log.d(TAG, String.format("onTouchEvent: x: %f, y: %f", e.getX() , e.getY()));
+
             ViewHolder holder = findContainingViewHolder(viewSwipedRight);
             StadiumViewHolder viewHolder = (StadiumViewHolder) holder;
             viewHolder.clearSwipeState();
-            ((StadiumAdapter) getAdapter()).removeAt(viewHolder.getAdapterPosition());
+            getStadiumAdapter().removeAt(viewHolder.getAdapterPosition());
 
-            Toast.makeText(getContext(), "CLICKED", Toast.LENGTH_LONG).show();
+            Log.d(TAG, String.format("onTouchEventViewHolder: id: %d, position: %d", viewHolder.getViewHolderId(), viewHolder.getPos()));
+
+            Toast.makeText(getContext(), "DELETE CLICKED", Toast.LENGTH_LONG).show();
         }
 
         return super.onTouchEvent(e);
-    }
-
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent e)
-    {
-        return super.onInterceptTouchEvent(e);
-    }
-
-    private StadiumAdapter getStadiumAdapter() {
-        return (StadiumAdapter) getAdapter();
     }
 
     @Override
@@ -72,5 +67,9 @@ public class CustomRecyclerView extends RecyclerView
             getStadiumAdapter().handleState(-1);
         }
         super.onScrollStateChanged(state);
+    }
+
+    private StadiumAdapter getStadiumAdapter() {
+        return (StadiumAdapter) getAdapter();
     }
 }

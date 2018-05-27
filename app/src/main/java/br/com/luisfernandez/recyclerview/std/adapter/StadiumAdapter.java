@@ -1,6 +1,6 @@
 package br.com.luisfernandez.recyclerview.std.adapter;
 
-import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,33 +42,37 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumViewHolder>
     static int count = 0;
 
     @Override
-    public StadiumViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    public StadiumViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
-        Log.d(TAG, "TEST onCreateViewHolder: " + (++count));
+        Log.d(TAG, "onCreateViewHolder: " + (++count));
+
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.item_country_list, parent, false);
 
-        return new StadiumViewHolder(view);
+        return new StadiumViewHolder(view, count);
     }
 
     @Override
-    public void onBindViewHolder(StadiumViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull StadiumViewHolder holder, int position)
     {
-        Log.d(TAG, "TEST onBindViewHolder: " + holder.getAdapterPosition() + ", tag: " + position);
-        //holder.clearSwipeState();
+        Log.d(TAG, "onBindViewHolder: " + currentAdapterPosition + ", pos: " + position + ", holderId: " + holder.getViewHolderId());
 
-
-        //holder.itemView.setTag(R.id.tag_position, holder.getAdapterPosition());
-
+        // Handle swipe to delete
         holder.setPosition(position);
 
-        Log.d(TAG, "");
+        holder.itemView.setTag(R.id.tag_state, new SwipeToDeleteState());
+        holder.clearSwipeState();
 
-        if (holder.itemView.getTag(R.id.tag_state) == null) {
-            holder.itemView.setTag(R.id.tag_state, new SwipeToDeleteState());
-            holder.clearSwipeState();
-        }
+//        if (holder.itemView.getTag(R.id.tag_state) == null) {
+//            holder.itemView.setTag(R.id.tag_state, new SwipeToDeleteState());
+//            holder.clearSwipeState();
+//
+//            Log.d(TAG, "onBindViewHolder: " + currentAdapterPosition + ", pos: " + position + ", holderId: " + holder.getViewHolderId());
+//        } else {
+//            Log.d(TAG, "--- onBindViewHolder: " + currentAdapterPosition + ", pos: " + position + ", holderId: " + holder.getViewHolderId());
+//        }
 
+        // Bind data
         Country stadium = this.getItem(position);
 
         holder.textName.setText(stadium.getName());
@@ -89,10 +93,8 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumViewHolder>
 
     public void removeAt(int position) {
         stadiumList.remove(position);
-        //notifyDataSetChanged();
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, stadiumList.size());
-
 
         currentAdapterPosition = -1;
     }

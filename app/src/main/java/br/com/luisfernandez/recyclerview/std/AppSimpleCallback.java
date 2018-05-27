@@ -27,6 +27,8 @@ public class AppSimpleCallback extends ItemTouchHelper.SimpleCallback
     public static final String TAG = "AppSimpleCallback";
     private final CustomRecyclerView recyclerView;
 
+    private float swipeThreshold = 0.9f;
+
     public AppSimpleCallback(int dragDirs, int swipeDirs, CustomRecyclerView recyclerView)
     {
         super(dragDirs, swipeDirs);
@@ -49,6 +51,31 @@ public class AppSimpleCallback extends ItemTouchHelper.SimpleCallback
     }
 
     @Override
+    public float getSwipeThreshold(RecyclerView.ViewHolder viewHolder) {
+        return swipeThreshold;
+    }
+
+    @Override
+    public float getSwipeEscapeVelocity(float defaultValue) {
+        return 2.1f * defaultValue;
+    }
+
+    @Override
+    public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder)
+    {
+        Log.d(TAG, "clearView: ");
+        super.clearView(recyclerView, viewHolder);
+    }
+
+    @Override
+    public void onChildDrawOver(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState,
+                                boolean isCurrentlyActive)
+    {
+        Log.d(TAG, "onChildDrawOver: ");
+        super.onChildDrawOver(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+    }
+
+    @Override
     public void onChildDraw(
             Canvas c,
             RecyclerView recyclerView,
@@ -58,8 +85,19 @@ public class AppSimpleCallback extends ItemTouchHelper.SimpleCallback
             int actionState,
             boolean isCurrentlyActive)
     {
+
+        Log.d(TAG, "onChildDraw: ");
+
         StadiumViewHolder viewHolder1 = (StadiumViewHolder) viewHolder;
-        viewHolder1.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive, getDefaultUIUtil());
+        if (!viewHolder1.isOpened() && ! viewHolder1.isVirtualOpened())
+        {
+            //super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            viewHolder1.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive, getDefaultUIUtil());
+        }
+        else
+        {
+            viewHolder1.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive, getDefaultUIUtil());
+        }
     }
 
     private void handleOnChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState,
