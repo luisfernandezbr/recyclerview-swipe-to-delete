@@ -19,8 +19,6 @@ import br.com.luisfernandez.recyclerview.std.view.CustomRecyclerView;
 /**
  * Created by luisfernandez on 25/05/18.
  */
-//https://stackoverflow.com/questions/44965278/recyclerview-itemtouchhelper-buttons-on-swipe/45062745
-//https://stackoverflow.com/questions/30820806/adding-a-colored-background-with-text-icon-under-swiped-row-when-using-androids/34687548
 public class AppSimpleCallback extends ItemTouchHelper.SimpleCallback
 {
     public static final String TAG = "AppSimpleCallback";
@@ -96,51 +94,6 @@ public class AppSimpleCallback extends ItemTouchHelper.SimpleCallback
         else
         {
             viewHolder1.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive, getDefaultUIUtil());
-        }
-    }
-
-    private void handleOnChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState,
-                                   boolean isCurrentlyActive)
-    {
-        Drawable deleteIcon = ContextCompat.getDrawable(recyclerView.getContext(), android.R.drawable.ic_delete);
-        int intrinsicWidth = deleteIcon.getIntrinsicWidth();
-        int  intrinsicHeight = deleteIcon.getIntrinsicHeight();
-        ColorDrawable background = new ColorDrawable();
-        int backgroundColor = Color.parseColor("#f44336");
-        Paint clearPaint = new Paint();
-        clearPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-
-        View itemView = viewHolder.itemView;
-        int itemHeight = itemView.getBottom() - itemView.getTop();
-        boolean isCanceled = dX == 0f && !isCurrentlyActive;
-
-        if (isCanceled) {
-            clearCanvas(c, itemView.getRight() + dX, (float)itemView.getTop(), (float)itemView.getRight(), (float)itemView.getBottom(), clearPaint);
-            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-        } else {
-// Draw the red delete background
-            background.setColor(backgroundColor);
-            background.setBounds(itemView.getRight() + (int)dX, itemView.getTop(), itemView.getRight(), itemView.getBottom());
-            background.draw(c);
-
-            // Calculate position of delete icon
-            int deleteIconTop = itemView.getTop() + (itemHeight - intrinsicHeight) / 2;
-            int deleteIconMargin = (itemHeight - intrinsicHeight) / 2;
-            int deleteIconLeft = itemView.getRight() - deleteIconMargin - intrinsicWidth;
-            int deleteIconRight = itemView.getRight() - deleteIconMargin;
-            int deleteIconBottom = deleteIconTop + intrinsicHeight;
-
-            // Draw the delete icon
-            deleteIcon.setBounds(deleteIconLeft, deleteIconTop, deleteIconRight, deleteIconBottom);
-            deleteIcon.draw(c);
-            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-        }
-    }
-
-    private void clearCanvas(Canvas c, float left, float top, float right, float bottom, Paint clearPaint)
-    {
-        if (c != null) {
-            c.drawRect(left, top, right, bottom, clearPaint);
         }
     }
 

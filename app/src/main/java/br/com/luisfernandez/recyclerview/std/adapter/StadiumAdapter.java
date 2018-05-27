@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -63,14 +64,15 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumViewHolder>
         holder.itemView.setTag(R.id.tag_state, new SwipeToDeleteState());
         holder.clearSwipeState();
 
-//        if (holder.itemView.getTag(R.id.tag_state) == null) {
-//            holder.itemView.setTag(R.id.tag_state, new SwipeToDeleteState());
-//            holder.clearSwipeState();
-//
-//            Log.d(TAG, "onBindViewHolder: " + currentAdapterPosition + ", pos: " + position + ", holderId: " + holder.getViewHolderId());
-//        } else {
-//            Log.d(TAG, "--- onBindViewHolder: " + currentAdapterPosition + ", pos: " + position + ", holderId: " + holder.getViewHolderId());
-//        }
+        holder.itemView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Toast.makeText(v.getContext(), "ITEM CLICKED", Toast.LENGTH_SHORT).show();
+                handleState(-1);
+            }
+        });
 
         // Bind data
         Country stadium = this.getItem(position);

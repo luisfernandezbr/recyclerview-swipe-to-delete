@@ -50,7 +50,7 @@ public class StadiumViewHolder extends RecyclerView.ViewHolder implements Stadiu
 
     public void onChildDraw(
             Canvas canvas,
-            RecyclerView recyclerView,
+            final RecyclerView recyclerView,
             RecyclerView.ViewHolder viewHolder,
             float dX,
             float dY,
@@ -64,15 +64,6 @@ public class StadiumViewHolder extends RecyclerView.ViewHolder implements Stadiu
 
         if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE)
         {
-            itemView.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    Toast.makeText(v.getContext(), "ITEM CLICKED", Toast.LENGTH_SHORT).show();
-                }
-            });
-
             handleBackground(canvas, dX, itemView);
             handleOnDraw(canvas, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive, defaultUIUtil);
         }
